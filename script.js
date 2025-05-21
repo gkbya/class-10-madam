@@ -1,25 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const allQuestions = document.querySelectorAll('.question');
+  const questions = document.querySelectorAll('.question');
 
-  allQuestions.forEach(question => {
+  questions.forEach(question => {
     const options = question.querySelectorAll('li');
 
     options.forEach(option => {
       option.addEventListener('click', () => {
-        // If already answered, ignore clicks
+        // Prevent multiple answers
         if (question.classList.contains('answered')) return;
+
+        question.classList.add('answered');
 
         const isCorrect = option.getAttribute('data-correct') === 'true';
 
-        // Mark question as answered to prevent multiple tries
-        question.classList.add('answered');
-
-        // Color selected option
         if (isCorrect) {
           option.classList.add('correct');
         } else {
           option.classList.add('incorrect');
-          // Also highlight correct option
+          // Show correct option(s)
           options.forEach(li => {
             if (li.getAttribute('data-correct') === 'true') {
               li.classList.add('correct');
